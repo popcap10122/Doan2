@@ -1,0 +1,80 @@
+﻿@model IEnumerable<QuanlyKH.Models.Khachhang>
+
+@{
+    ViewData["Title"] = "Index";
+}
+    
+<h1><a asp-action="Index">Danh sách KH</a></h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="mb-3">
+    <form class="input-group float-right w-50" asp-action="Search" method="get">
+        <input type="text" class="form-control" placeholder="Search for" name="search" />
+        <div class=" input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </form>
+
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-orderBy="MsKH" asp-route-desc="@ViewData["MsKH"]" asp-route-page="@ViewData["page"]">
+                    @Html.DisplayNameFor(model => model.MsKH)
+                </a>
+                   
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-orderBy="TenKH" asp-route-desc="@ViewData["TenKH"]" asp-route-page="@ViewData["page"]">
+                    @Html.DisplayNameFor(model => model.TenKH)
+                </a>
+                       
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-orderBy="TenKH" asp-route-desc="@ViewData["Nodau"]" asp-route-page="@ViewData["page"]">
+                    @Html.DisplayNameFor(model => model.Nodau)
+                </a>
+                        
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MsKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nodau)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MsKH" class="btn btn-outline-warning">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MsKH" class="btn btn-outline-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MsKH" class="btn btn-outline-danger">Delete</a>
+            </td>
+        </tr>
+        }
+        <tr>
+            <td colspan="2">
+                @{ int pages = (int)ViewData["pages"]; int p = (int)ViewData["page"];
+                }
+                <form asp-action="Index" method="get">
+                    <input type="submit" value="Goto " />Page
+                    <input type="number" name="page" max="@pages" min="1" value="@p" />
+                </form>
+            </td>
+            <td colspan="3">Tổng số : @Model.Count()</td>
+        </tr>
+    </tbody>
+</table>
+
+

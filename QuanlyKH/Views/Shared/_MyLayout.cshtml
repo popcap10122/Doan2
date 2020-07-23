@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/mystyle.css" rel="stylesheet" />
+</head>
+<body>
+    <ul>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-info" asp-area="" asp-controller="Khachhang" asp-action="Index">Danh sách KH</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-info" asp-area="" asp-controller="Phieuthu" asp-action="Index">Danh sách Phiếu Thu</a>
+        </li>
+    </ul>
+    <div class="w-75 float-right mr-1">
+        @RenderBody()
+    </div>
+   
+
+   
+    @if (IsSectionDefined("myscript"))
+    {
+        RenderSection("myscript");
+    }
+
+</body>
+
+</html>

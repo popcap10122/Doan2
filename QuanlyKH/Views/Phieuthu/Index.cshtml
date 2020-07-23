@@ -1,0 +1,82 @@
+﻿@model IEnumerable<QuanlyKH.Models.Phieuthu>
+
+@{
+ViewData["Title"] = "Index";
+}
+
+  
+<h1>Danh sach Phieu Thu</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="mb-3">
+    <form asp-action="Search" method="get" class="w-50 float-right input-group">
+        <input type="text" class="form-control " name="search" />
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-dsc="@ViewData["MsPT"]" asp-route-orderBy="MsPT" asp-route-page="@ViewData["page"]">
+
+                    @Html.DisplayNameFor(model => model.MsPT)
+                </a>
+                       
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-dsc="@ViewData["NgayThu"]" asp-route-orderBy="NgayThu" asp-route-page="@ViewData["page"]">
+
+                    @Html.DisplayNameFor(model => model.NgayThu)
+                </a>
+                        
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoTien)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MsPT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayThu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoTien)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MsPT">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MsPT">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MsPT">Delete</a>
+            </td>
+        </tr>
+        }
+    <tr>
+        <td colspan="2">
+            @{
+                int pages = (int)ViewData["pages"];
+                int p = (int)ViewData["page"] ;
+            }
+            <form asp-action="Index" method="get">
+                <input type="submit" class="btn btn-primary" value="Go to page"/>
+                <input  value="@p" min="1" max="@pages" name="page" type="number"/>
+            </form>
+        </td>
+        <td colspan="3"> Total record: @Model.Count()</td>
+    </tr>
+                
+    </tbody>
+</table>
+
+    

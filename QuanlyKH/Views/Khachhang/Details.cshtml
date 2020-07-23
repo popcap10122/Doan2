@@ -1,0 +1,40 @@
+﻿@model QuanlyKH.Models.Khachhang
+
+@{
+    ViewData["Title"] = "Details";
+    
+}
+<h3></h3>
+<div>
+    <h4>Khachhang</h4>
+    <hr />
+    @if ((int)ViewData["SLPT"] > 0)
+    {
+        <p>Số lượng phiếu thu của KH: <strong>@((int)ViewData["SLPT"])</strong></p>
+        <a asp-action="DetailKHPT" asp-route-id="@Model.MsKH" class="btn btn-outline-success">Thêm Phiếu Thu</a>
+    }
+    else
+    {
+        <p>Chưa có phiếu thu của KH này</p>
+        <a asp-action="DetailKHPT" asp-route-id="@Model.MsKH" class="btn btn-outline-success">Tạo Phiếu thu</a>
+    }
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TenKH)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TenKH)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nodau)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nodau)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MsKH" class="btn btn-outline-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-outline-primary">Quay lại</a>
+</div>
