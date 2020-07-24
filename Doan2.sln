@@ -8,7 +8,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.Solutions Items", "0.Solu
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doan.Data", "Doan.Data\Doan.Data.csproj", "{96B18ED5-1D29-4705-A255-0735D4C2048D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doan.Data", "Doan.Data\Doan.Data.csproj", "{96B18ED5-1D29-4705-A255-0735D4C2048D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.infastructure", "1.infastructure", "{A3CC74EE-7E74-4BF1-B565-C9D2E35A1753}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Domain", "2.Domain", "{EF33FBA8-50DF-4BD8-9576-EE7E50FD1D49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96B18ED5-1D29-4705-A255-0735D4C2048D} = {EF33FBA8-50DF-4BD8-9576-EE7E50FD1D49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {17BB9A41-7008-4078-A307-B69ED4E2D5A9}
