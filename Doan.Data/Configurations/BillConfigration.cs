@@ -14,7 +14,7 @@ namespace Doan.Data.Configurations
             builder.ToTable("Bills");
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.UserCustomer).WithMany(x => x.Bills).HasForeignKey(x => x.CustomerId);
+            builder.HasOne(x => x.AppUser).WithMany(x => x.Bills).HasForeignKey(x => x.CustomerId);
         }
     }
 }

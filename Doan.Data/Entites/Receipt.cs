@@ -6,10 +6,10 @@ namespace Doan.Data.Entites
 {
     public class Receipt
     {
-        public int Id { get; set; }
-        public int SupplierId { get; set; }
-        public DateTime DateCreated { get; set; }
-        public UserSupplier UserSupplier { get; set; }
+        public string Id { get; set; }
+        public string SupplierId { get; set; }
+        public DateTime DateAdd { get; set; }
+        public AppUser AppUser { get; set; }
         public ICollection<ProductReceipt> ProductReceipts { get; set; }
     }
 }

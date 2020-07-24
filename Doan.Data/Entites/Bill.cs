@@ -6,10 +6,11 @@ namespace Doan.Data.Entites
 {
     public class Bill
     {
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public DateTime DateCreated { get; set; }
+        public string Id { get; set; }
+        public string CustomerId { get; set; }
+        public DateTime BillDate { get; set; }
+
         public decimal Price { get; set; }
-        public UserCustomer UserCustomer { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }
