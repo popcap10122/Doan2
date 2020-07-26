@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Doan.Application\Doan.Application.csproj" />
+    <ProjectReference Include="..\Doan.Data\Doan.Data.csproj" />
+    <ProjectReference Include="..\Doan.Utilities\Doan.Utilities.csproj" />
+    <ProjectReference Include="..\Doan.ViewModels\Doan.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
