@@ -14,5 +14,6 @@ namespace Doan.Data.Entites
         public DateTime DateCreated { get; set; }
         public ICollection<ProductInvoice> productInvoices { get; set; }
         public ICollection<ProductReceipt> productReceipts { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
     }
 }

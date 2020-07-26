@@ -35,6 +35,8 @@ namespace Doan.Data.EF
             modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
             modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("AppRoleClaims");
             modelBuilder.Entity<IdentityUserToken<string>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
+
+            modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             //Seed data
             modelBuilder.Seed();
         }
@@ -48,5 +50,6 @@ namespace Doan.Data.EF
         public DbSet<ProductReceipt> ProductReceipts { get; set; }
 
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
     }
 }
