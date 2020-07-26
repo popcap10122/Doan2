@@ -21,7 +21,7 @@ namespace Doan.BackendAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(ProductPagingRequest request)
+        public async Task<IActionResult> Get([FromQuery] ProductPagingRequest request)
         {
             var product = await _productService.GetAll(request);
             return Ok(product);

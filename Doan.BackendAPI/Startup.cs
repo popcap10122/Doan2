@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Doan.BackendAPI
 {
@@ -34,7 +35,11 @@ namespace Doan.BackendAPI
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IStorageService, FileStorageService>();
 
-            services.AddControllersWithViews();
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger Doan", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +61,12 @@ namespace Doan.BackendAPI
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Doan Demo V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
