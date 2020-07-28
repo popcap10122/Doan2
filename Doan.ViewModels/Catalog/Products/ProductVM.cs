@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Doan.ViewModels.Catalog.Products
 {
-    public class ProductViewModel
+    public class ProductVM
     {
         public string Id { get; set; }
         public string Name { get; set; }
