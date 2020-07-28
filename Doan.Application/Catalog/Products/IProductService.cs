@@ -20,16 +20,18 @@ namespace Doan.Application.Catalog.Products
 
         Task<ApiResult<int>> UpdateStock(string productId, int addQuantity);
 
-        Task<ApiResult<PagedResult<ProductViewModel>>> GetAll(ProductPagingRequest request);
+        Task<ApiResult<PagedResult<ProductVM>>> GetAll(ProductPagingRequest request);
 
         Task<ApiResult<int>> AddImage(string producId, ProductImageCreateRequest request);
 
-        Task<ApiResult<int>> UpdateImage(string ImageId, ProductImageUpdateRequest request);
+        Task<ApiResult<int>> UpdateImage(int ImageId, ProductImageUpdateRequest request);
 
-        Task<ApiResult<int>> RemoveImage(string ImageId);
+        Task<ApiResult<int>> RemoveImage(int ImageId);
 
-        Task<ApiResult<PagedResult<ProductImageVM>>> GetListImage(int productId, ProductImagePagingRequest request);
+        Task<ApiResult<PagedResult<ProductImageVM>>> GetListImage(string productId, ProductImagePagingRequest request);
 
         Task<ApiResult<ProductImageVM>> GetImageById(int ImageId);
+
+        Task<ApiResult<ProductVM>> GetById(string producId);
     }
 }

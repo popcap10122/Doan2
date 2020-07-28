@@ -42,8 +42,14 @@ namespace Doan.Application.Catalog.Products
 
         public async Task<ApiResult<string>> Create(ProductCreateRequest request)
         {
+            var idExist = await _context.Products.AnyAsync(x => x.Id == request.Id);
+            if (idExist)
+            {
+                return new ApiErrorResult<string>($"Id  {request.Id} is exists in System");
+            }
             var product = new Product
             {
+                Id = request.Id,
                 Name = request.Name,
                 Unit = request.Unit,
                 Stock = request.Stock,
@@ -89,14 +95,14 @@ namespace Doan.Application.Catalog.Products
             return new ApiSuccessResult<bool>();
         }
 
-        public async Task<ApiResult<PagedResult<ProductViewModel>>> GetAll(ProductPagingRequest request)
+        public async Task<ApiResult<PagedResult<ProductVM>>> GetAll(ProductPagingRequest request)
         {
             var query = from p in _context.Products
                         select p;
             var totalRow = await query.CountAsync();
 
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
-                .Select(x => new ProductViewModel
+                .Select(x => new ProductVM
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -105,14 +111,14 @@ namespace Doan.Application.Catalog.Products
                     DateCreated = x.DateCreated,
                     ViewCount = x.ViewCount
                 }).ToListAsync();
-            var pagedResult = new PagedResult<ProductViewModel>
+            var pagedResult = new PagedResult<ProductVM>
             {
                 Items = data,
                 PageIndex = request.PageIndex,
                 PageSize = request.PageSize,
                 TotalRecords = totalRow
             };
-            return new ApiSuccessResult<PagedResult<ProductViewModel>>(pagedResult);
+            return new ApiSuccessResult<PagedResult<ProductVM>>(pagedResult);
         }
 
         public async Task<ApiResult<int>> Update(ProductUpdateRequest request)
@@ -162,7 +168,7 @@ namespace Doan.Application.Catalog.Products
             return new ApiSuccessResult<int>();
         }
 
-        public async Task<ApiResult<int>> UpdateImage(string ImageId, ProductImageUpdateRequest request)
+        public async Task<ApiResult<int>> UpdateImage(int ImageId, ProductImageUpdateRequest request)
         {
             var image = await _context.ProductImages.FindAsync(ImageId);
             if (image == null)
@@ -173,13 +179,17 @@ namespace Doan.Application.Catalog.Products
             image.DateCreated = DateTime.Now;
             image.IsDefault = request.IsDefault;
             image.SortOrder = request.SortOrder;
-            image.ImagePath = await this.SaveFile(request.ImageFile);
+            if (request.ImageFile != null)
+            {
+                image.ImagePath = await this.SaveFile(request.ImageFile);
+                image.FileSize = request.ImageFile.Length;
+            }
             _context.ProductImages.Update(image);
             await _context.SaveChangesAsync();
             return new ApiSuccessResult<int>();
         }
 
-        public async Task<ApiResult<int>> RemoveImage(string ImageId)
+        public async Task<ApiResult<int>> RemoveImage(int ImageId)
         {
             var image = await _context.ProductImages.FindAsync(ImageId);
             if (image == null)
@@ -191,7 +201,7 @@ namespace Doan.Application.Catalog.Products
             return new ApiSuccessResult<int>();
         }
 
-        public async Task<ApiResult<PagedResult<ProductImageVM>>> GetListImage(int productId, ProductImagePagingRequest request)
+        public async Task<ApiResult<PagedResult<ProductImageVM>>> GetListImage(string productId, ProductImagePagingRequest request)
         {
             var query = from pi in _context.ProductImages
                         join p in _context.Products on pi.ProductId equals p.Id
@@ -201,6 +211,7 @@ namespace Doan.Application.Catalog.Products
             var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
                 .Select(x => new ProductImageVM()
                 {
+                    Id = x.Id,
                     Caption = x.Caption,
                     ProductId = x.ProductId,
                     DateCreated = x.DateCreated,
@@ -228,6 +239,7 @@ namespace Doan.Application.Catalog.Products
             }
             var data = new ProductImageVM
             {
+                Id = image.Id,
                 Caption = image.Caption,
                 ProductId = image.ProductId,
                 DateCreated = image.DateCreated,
@@ -238,6 +250,25 @@ namespace Doan.Application.Catalog.Products
             };
 
             return new ApiSuccessResult<ProductImageVM>(data);
+        }
+
+        public async Task<ApiResult<ProductVM>> GetById(string producId)
+        {
+            var product = await _context.Products.FindAsync(producId);
+            if (product == null)
+            {
+                return new ApiErrorResult<ProductVM>($"Cannot find image with id {producId}");
+            }
+            var productvm = new ProductVM
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Unit = product.Unit,
+                Stock = product.Stock,
+                ViewCount = product.ViewCount,
+                DateCreated = product.DateCreated
+            };
+            return new ApiSuccessResult<ProductVM>(productvm);
         }
     }
 }

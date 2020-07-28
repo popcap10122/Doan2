@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Doan.Utilities\Doan.Utilities.csproj" />
     <ProjectReference Include="..\Doan.ViewModels\Doan.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\user-content\" />
+  </ItemGroup>
 </Project>
