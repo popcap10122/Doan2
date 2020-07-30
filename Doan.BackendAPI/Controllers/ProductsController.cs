@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Doan.Application.Catalog.Products;
 using Doan.ViewModels.Catalog.ProductImages;
 using Doan.ViewModels.Catalog.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace Doan.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
